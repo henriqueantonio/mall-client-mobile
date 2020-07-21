@@ -1,0 +1,12 @@
+{
+  "name": "mall",
+  "displayName": "mall",
+  "expo": {
+    "name": "mall",
+    "slug": "mall",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
