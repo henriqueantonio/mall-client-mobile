@@ -3,8 +3,9 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+import Finder from './finder.routes';
+
 import Cart from '../pages/Cart';
-import Discover from '../pages/Discover';
 import Home from '../pages/Home';
 import Inbox from '../pages/Inbox';
 import Profile from '../pages/Profile';
@@ -19,7 +20,7 @@ const AppRoutes: React.FC = () => (
 
         if (route.name === 'Home') {
           iconName = focused ? 'home' : 'home-outline';
-        } else if (route.name === 'Discover') {
+        } else if (route.name === 'Finder') {
           iconName = focused ? 'search-web' : 'search-web';
         } else if (route.name === 'Cart') {
           iconName = focused ? 'cart' : 'cart-outline';
@@ -45,9 +46,10 @@ const AppRoutes: React.FC = () => (
       },
       showLabel: false,
     }}
+    initialRouteName="Home"
   >
     <Tab.Screen name="Home" component={Home} />
-    <Tab.Screen name="Discover" component={Discover} />
+    <Tab.Screen name="Finder" component={Finder} />
     <Tab.Screen name="Cart" component={Cart} />
     <Tab.Screen name="Inbox" component={Inbox} />
     <Tab.Screen name="Profile" component={Profile} />

@@ -35,6 +35,17 @@ export const PostDescriptionText = styled.Text.attrs({
   numberOfLines: 1,
 })`
   color: #ffff;
+  font-family: 'Roboto-Medium';
+`;
+
+export const PostDescriptionSeeMore = styled.TouchableOpacity.attrs({
+  hitSlop: { top: 10, left: 10, right: 10, bottom: 10 },
+})``;
+
+export const PostDescriptionSeeMoreText = styled.Text`
+  color: #ffff;
+  font-family: 'Roboto-Black';
+  font-weight: bold;
 `;
 
 export const PostUser = styled.View`
@@ -61,4 +72,22 @@ export const PostUserIcon = styled.Image`
 export const PostUserText = styled.Text`
   color: #ffff;
   font-size: 16px;
+  font-family: 'Roboto-Regular';
+  font-weight: 600;
+`;
+
+export const InterectionView = styled.View`
+  position: absolute;
+  top: 20%;
+`;
+
+export const InterectionButton = styled.TouchableOpacity`
+  margin: 8px;
+`;
+
+export const InterectionText = styled.Text`
+  color: #fff;
+  font-weight: 500;
+  margin: 2px 5px;
+  font-family: 'Roboto-Regular';
 `;

@@ -6,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import Routes from './routes';
 
-const src: React.FC = () => {
+const App: React.FC = () => {
   return (
     <NavigationContainer>
       <StatusBar style="light" />
@@ -15,4 +15,4 @@ const src: React.FC = () => {
   );
 };
 
-export default src;
+export default App;
