@@ -6,7 +6,7 @@ import { Small, Original } from './styles';
 interface ILazyImage {
   smallSource: { uri: string };
   source: { uri: string };
-  shouldLoad: boolean;
+  shouldLoad?: boolean;
 }
 
 const AnimatedOriginal = Animated.createAnimatedComponent(Original);

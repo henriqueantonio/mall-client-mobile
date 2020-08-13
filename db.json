@@ -1,5 +1,5 @@
 {
-  "posts": [
+  "feed": [
     {
       "id": 1,
       "image": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/instagram-clone/1.jpeg",
@@ -134,8 +134,8 @@
     },
     {
       "id": 13,
-      "image": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/instagram-clone/4.jpeg",
-      "small": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/instagram-clone/small/4.jpeg",
+      "image": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/instagram-clone/1.jpeg",
+      "small": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/instagram-clone/small/1.jpeg",
       "aspectRatio": 0.834,
       "description": "Sleep, eat, code, repeat!",
       "user_liked": false,

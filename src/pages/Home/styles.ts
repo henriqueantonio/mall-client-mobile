@@ -15,7 +15,7 @@ export const Container = styled.View`
 export const PostList = styled(FlatList as new () => FlatList<IPost>)``;
 
 export const Post = styled.View`
-  flex: 1;
+  height: ${windowHeight}px;
 `;
 
 export const LazyImage = styled(LazyImageComp)``;

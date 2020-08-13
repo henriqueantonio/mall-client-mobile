@@ -36,47 +36,41 @@ export interface IPost {
 }
 
 const Home: React.FC = () => {
-  const [posts, setPosts] = useState<IPost[]>([]);
-  const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
-  const [viewable, setViewable] = useState<Number[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [refreshing, setRefreshing] = useState(false);
-
   let postListRef = useRef<FlatList<IPost>>(null);
   useScrollToTop(postListRef);
 
-  const loadPage = useCallback(
-    async (pageNumber = page, shouldRefresh = false) => {
-      if (pageNumber === total) return;
-      if (loading) return;
+  const [feed, setFeed] = useState<IPost[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState<null | Number>(null);
+  const [refreshing, setRefreshing] = useState(false);
+  const [viewable, setViewable] = useState<Number[]>([]);
 
-      setLoading(true);
+  async function loadFeed(pageNumber = page, shouldRefresh = false) {
+    if (loading) return;
+    if (totalPages && page > totalPages) return;
 
-      const response = await api.get(
-        `http://localhost:3333/posts?_limit=4&_page=${pageNumber}`
-      );
+    setLoading(true);
+    const response = await api.get<IPost[]>(
+      `/feed?_limit=4&_page=${pageNumber}`
+    );
+    const data = response.data;
+    const totalPosts = response.headers['x-total-count'];
 
-      const totalItems = response.headers['x-total-count'];
-      const data = response.data;
-      setLoading(false);
-      setTotal(Math.ceil(totalItems / 4));
-      setPage(pageNumber + 1);
-      setPosts(shouldRefresh ? data : [...posts, ...data]);
-    },
-    []
-  );
-
-  const refreshList = useCallback(async () => {
-    setRefreshing(true);
-
-    await loadPage(1, true);
-
-    setRefreshing(false);
-  }, []);
+    setFeed((state) => (shouldRefresh ? data : [...state, ...data]));
+    setPage(pageNumber + 1);
+    setTotalPages(Math.ceil(totalPosts / 4));
+    setLoading(false);
+  }
 
   useEffect(() => {
-    loadPage();
+    loadFeed();
+  }, []);
+
+  const handleRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await loadFeed(1, true);
+    setRefreshing(false);
   }, []);
 
   const handleViewableChanged = useCallback(
@@ -86,31 +80,21 @@ const Home: React.FC = () => {
     []
   );
 
-  async function handleLike(post_id: number, user_liked: boolean) {
-    // setPosts((state) =>
-    //   state.map((post) =>
-    //     post.id === post_id ? { ...post, user_liked: !user_liked } : post
-    //   )
-    // );
-    // await api.patch(`/posts/${post_id}`, { user_liked: !user_liked });
-  }
-
   return (
     <Container>
       <PostList
         ref={postListRef}
-        data={posts}
+        data={feed}
         keyExtractor={(item) => String(item.id)}
+        ListFooterComponent={loading ? <Loading /> : undefined}
+        onRefresh={handleRefresh}
+        refreshing={refreshing}
+        onEndReachedThreshold={0.1}
+        onEndReached={() => loadFeed()}
         onViewableItemsChanged={handleViewableChanged}
         viewabilityConfig={{
           viewAreaCoveragePercentThreshold: 10,
         }}
-        showsVerticalScrollIndicator={false}
-        onRefresh={refreshList}
-        refreshing={refreshing}
-        onEndReachedThreshold={0.1}
-        onEndReached={() => loadPage()}
-        ListFooterComponent={loading ? <Loading /> : null}
         renderItem={({ item: post }) => (
           <Post>
             <PostUser>
@@ -119,7 +103,9 @@ const Home: React.FC = () => {
                   uri: `http://api.adorable.io/avatars/285/${post.username}@adorable.png`,
                 }}
               />
-              <PostUserText>@{post.username}</PostUserText>
+              <PostUserText>
+                @{post.username} - {post.id}
+              </PostUserText>
             </PostUser>
             <LazyImage
               shouldLoad={viewable.includes(post.id)}
@@ -135,9 +121,7 @@ const Home: React.FC = () => {
               </PostDescriptionSeeMore>
             </PostDescription>
             <InterectionView>
-              <InterectionButton
-                onPress={() => handleLike(post.id, post.user_liked)}
-              >
+              <InterectionButton onPress={() => {}}>
                 <MaterialCommunityIcons
                   name="heart"
                   size={30}
