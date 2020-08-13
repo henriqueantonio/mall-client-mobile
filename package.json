@@ -22,12 +22,12 @@
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
     "react-native": "~0.62.2",
+    "react-native-fast-image": "^8.3.2",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-iphone-x-helper": "^1.2.1",
     "react-native-reanimated": "^1.9.0",
     "react-native-safe-area-context": "^3.1.1",
     "react-native-screens": "^2.9.0",
-    "react-native-shimmer": "^0.6.0",
     "react-native-unimodules": "~0.10.1",
     "react-native-web": "~0.11.7",
     "styled-components": "^5.1.1"

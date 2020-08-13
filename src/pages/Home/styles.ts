@@ -3,6 +3,7 @@ import colors from '../../styles/colors';
 import { FlatList, Dimensions } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { IPost } from './index';
+import LazyImageComp from '../../components/LazyImage';
 
 const windowHeight = Dimensions.get('window').height;
 
@@ -17,10 +18,7 @@ export const Post = styled.View`
   flex: 1;
 `;
 
-export const PostImage = styled.Image`
-  height: ${windowHeight}px;
-  width: 100%;
-`;
+export const LazyImage = styled(LazyImageComp)``;
 
 export const PostDescription = styled.View`
   position: absolute;
@@ -90,4 +88,11 @@ export const InterectionText = styled.Text`
   font-weight: 500;
   margin: 2px 5px;
   font-family: 'Roboto-Regular';
+`;
+
+export const Loading = styled.ActivityIndicator.attrs({
+  size: 'small',
+  color: '#ffff',
+})`
+  margin: 30px 0;
 `;
